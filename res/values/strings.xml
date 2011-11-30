@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
     <string name="hello">Hello World, Shell!</string>
     <string name="app_name">CallerID</string>
-
+    <string name="allow">Allow</string>
+    <string name="block">Block</string>
 </resources>
