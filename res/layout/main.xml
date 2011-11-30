@@ -3,11 +3,17 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:orientation="vertical" >
-
     <TextView
         android:id="@+id/textOut"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:text="@string/hello" />
-
+    <Button android:id="@+id/allow" android:layout_width="fill_parent"
+	android:layout_height="wrap_content" android:text="@string/allow"
+	android:textSize="20sp" android:onClick="onAllowClick"
+    />
+    <Button android:id="@+id/block" android:layout_width="fill_parent"
+	android:layout_height="wrap_content" android:text="@string/block"
+	android:textSize="20sp" android:onClick="onBlockClick"
+    />
 </LinearLayout>
