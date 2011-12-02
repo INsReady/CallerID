@@ -1,5 +1,9 @@
 package com.insready.callerid;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
@@ -17,7 +21,7 @@ public class CallerIDService extends Service {
 		// TODO Auto-generated method stub
 		return null;
 	}
-
+	
 	@Override
 	public void onCreate() {
 		super.onCreate();
@@ -32,20 +36,29 @@ public class CallerIDService extends Service {
 				case TelephonyManager.CALL_STATE_RINGING:
 					RESTServerClient sandbox = new RESTServerClient(
 							getString(R.string.SERVER), getString(R.string.DOMAIN));
-					Toast.makeText(CallerIDService.this,
-							"我要阻挡这个号码，呜哈: " + incomingNumber,
-							Toast.LENGTH_LONG).show();
 					String result = null;
+					String title = null;
+					String addressName = null;
+					JSONObject jso;
+					JSONArray jsa;
 					try {
-						result = sandbox.viewsGet("callerinfo", "", "15058643709", 0, 10);
+						result = sandbox.viewsGet("callerinfo", "", incomingNumber + "/en", 0, 10);
+						jsa = new JSONArray(result);
+						jso = jsa.getJSONObject(0);
+						title = jso.getString("node_title");
+						addressName = jso.getString("location_name");
 					} catch (Exception e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
+					Toast.makeText(CallerIDService.this,
+							"来电人： " + title + "\n来电人地址: " + addressName,
+							Toast.LENGTH_LONG).show();
 					break;
 				}
 			}
 		};
 		tm.listen(listener, PhoneStateListener.LISTEN_CALL_STATE);
 	}
+	
 }
